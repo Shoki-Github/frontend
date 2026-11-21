@@ -28,7 +28,7 @@ onMounted(async () => {
     <section class="relative isolate min-h-[78.3vh] overflow-hidden bg-navy">
       <video
         class="absolute inset-0 -z-20 h-full w-full object-cover"
-        src="/gemini_generated_video_5b4e0133.mp4"
+        src="/hero-background.mp4"
         autoplay
         muted
         loop
