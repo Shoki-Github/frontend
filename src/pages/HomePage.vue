@@ -29,6 +29,7 @@ onMounted(async () => {
       <video
         class="absolute inset-0 -z-20 h-full w-full object-cover"
         src="/hero-background.mp4"
+        poster="/hero-background-poster.jpg"
         autoplay
         muted
         loop
