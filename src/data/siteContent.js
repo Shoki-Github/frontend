@@ -13,7 +13,7 @@ export const brand = {
 }
 
 export const homeContent = {
-  title: 'Shaping better decisions for a sustainable future.',
+  title: 'Shaping Better Decisions For A Sustainable Future.',
   intro: 'CLM Consultants Limited combines monitoring and evaluation, data systems, artificial intelligence and local expertise to help organisations turn evidence into practical action.',
   audiences: [
     {
