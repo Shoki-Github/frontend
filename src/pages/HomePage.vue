@@ -33,7 +33,8 @@ onMounted(async () => {
         muted
         loop
         playsinline
-        preload="metadata"
+        preload="auto"
+        fetchpriority="high"
         aria-hidden="true"
       ></video>
       <div class="mx-auto max-w-7xl px-5 pb-16 pt-0 md:pb-20 md:pt-4 lg:px-8">
