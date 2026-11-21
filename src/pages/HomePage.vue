@@ -29,7 +29,6 @@ onMounted(async () => {
       <video
         class="absolute inset-0 -z-20 h-full w-full object-cover"
         src="/gemini_generated_video_5b4e0133.mp4"
-        poster="/evaluation.jpg"
         autoplay
         muted
         loop
