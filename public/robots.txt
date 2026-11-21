@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://clm-consultants.vercel.app/sitemap.xml

@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #1b2a4a;
+  --color-muted: #2b2b2b;
+  --color-paper: #f7f3e8;
+  --color-brand: #0f7c7a;
+  --color-brand-dark: #0c6866;
+  --color-brand-soft: #e6f3f1;
+  --color-line: #e5dfcd;
+  --color-navy: #1b2a4a;
+  --font-sans: Inter, "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+:root {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #fff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #fff;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 3px solid #0f7c7a;
+  outline-offset: 3px;
+}
+
+::selection {
+  color: #fff;
+  background: #0f7c7a;
+}
+
+.content-card {
+  border: 1px solid var(--color-line);
+  border-radius: 0.9rem;
+  background: #fff;
+  box-shadow: 0 8px 26px rgb(18 53 95 / 5%);
+}
+
+/* Printing (used by the capability statement): show page content only. */
+@media print {
+  header,
+  footer,
+  .no-print,
+  a[aria-label*="WhatsApp"] {
+    display: none !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  @page {
+    margin: 14mm;
+  }
+}
