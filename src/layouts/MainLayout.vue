@@ -42,20 +42,13 @@ async function logout() {
           <RouterLink v-if="publishedCaseStudies.length >= 2" class="nav-link" to="/case-studies">Case Studies</RouterLink>
           <RouterLink class="nav-link" to="/digital-products">Digital Products</RouterLink>
           <RouterLink class="nav-link" to="/learn">Training</RouterLink>
-          <RouterLink class="nav-link" to="/insights">Insights</RouterLink>
           <RouterLink class="nav-link" to="/toolkit">Toolkit</RouterLink>
           <RouterLink class="nav-link" to="/contact">Contact</RouterLink>
           <RouterLink v-if="auth.user?.can_manage_consultations || auth.user?.can_manage_content" class="nav-link" to="/admin">Admin</RouterLink>
           <RouterLink v-if="ENABLE_ACCOUNTS && !auth.isAuthenticated" class="nav-link" to="/login">Sign in</RouterLink>
           <button v-else-if="auth.isAuthenticated" class="nav-link text-left" type="button" @click="logout">Sign out</button>
-          <RouterLink class="consultation-link ml-2 inline-flex min-h-11 items-center justify-center rounded-md bg-brand px-5 text-xs font-bold text-white transition hover:bg-brand-dark" to="/contact">
-            Request Consultation
-          </RouterLink>
         </nav>
 
-        <RouterLink class="inline-flex min-h-10 shrink-0 items-center justify-center rounded-md bg-brand px-2.5 text-[0.68rem] font-bold text-white transition hover:bg-brand-dark xl:hidden" to="/contact">
-          Request Consultation
-        </RouterLink>
         <button
           class="menu-toggle inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-white/30 text-white transition hover:bg-white/10 xl:hidden"
           type="button"
@@ -83,7 +76,6 @@ async function logout() {
           <RouterLink v-if="publishedCaseStudies.length >= 2" class="mobile-menu-link" to="/case-studies">Case Studies</RouterLink>
           <RouterLink class="mobile-menu-link" to="/digital-products">Digital Products</RouterLink>
           <RouterLink class="mobile-menu-link" to="/learn">Training</RouterLink>
-          <RouterLink class="mobile-menu-link" to="/insights">Insights</RouterLink>
           <RouterLink class="mobile-menu-link" to="/toolkit">MEL Toolkit</RouterLink>
           <RouterLink class="mobile-menu-link" to="/contact">Contact</RouterLink>
           <RouterLink v-if="auth.user?.can_manage_consultations || auth.user?.can_manage_content" class="mobile-menu-link" to="/admin">Admin</RouterLink>
@@ -118,7 +110,6 @@ async function logout() {
           <ul class="mt-4 space-y-3 text-sm text-slate-200">
             <li><RouterLink class="transition-colors hover:text-white" to="/about">About</RouterLink></li>
             <li v-if="publishedCaseStudies.length >= 2"><RouterLink class="transition-colors hover:text-white" to="/case-studies">Case Studies</RouterLink></li>
-            <li><RouterLink class="transition-colors hover:text-white" to="/insights">Insights</RouterLink></li>
             <li v-if="publishedLearnProducts.length"><RouterLink class="transition-colors hover:text-white" to="/learn">Training &amp; Courses</RouterLink></li>
             <li><RouterLink class="transition-colors hover:text-white" to="/toolkit">MEL Toolkit</RouterLink></li>
             <li><RouterLink class="transition-colors hover:text-white" to="/capability">Capability Statement</RouterLink></li>
