@@ -5,6 +5,7 @@ import BrandLogo from '../components/BrandLogo.vue'
 import { publishedCaseStudies } from '../data/caseStudies'
 import { ENABLE_ACCOUNTS } from '../data/features'
 import { publishedLearnProducts } from '../data/learnProducts'
+import { onlineCourse } from '../data/onlineCourse'
 import { brand } from '../data/siteContent'
 import { serviceLines } from '../data/serviceLines'
 import { useAuthStore } from '../stores/auth'
@@ -42,6 +43,7 @@ async function logout() {
           <RouterLink v-if="publishedCaseStudies.length >= 2" class="nav-link" to="/case-studies">Case Studies</RouterLink>
           <RouterLink class="nav-link" to="/digital-products">Digital Products</RouterLink>
           <RouterLink class="nav-link" to="/learn">Training</RouterLink>
+          <a class="nav-link" :href="onlineCourse.href" target="_blank" rel="noopener noreferrer">{{ onlineCourse.title }}</a>
           <RouterLink class="nav-link" to="/toolkit">Toolkit</RouterLink>
           <RouterLink class="nav-link" to="/contact">Contact</RouterLink>
           <RouterLink v-if="auth.user?.can_manage_consultations || auth.user?.can_manage_content" class="nav-link" to="/admin">Admin</RouterLink>
@@ -76,6 +78,7 @@ async function logout() {
           <RouterLink v-if="publishedCaseStudies.length >= 2" class="mobile-menu-link" to="/case-studies">Case Studies</RouterLink>
           <RouterLink class="mobile-menu-link" to="/digital-products">Digital Products</RouterLink>
           <RouterLink class="mobile-menu-link" to="/learn">Training</RouterLink>
+          <a class="mobile-menu-link" :href="onlineCourse.href" target="_blank" rel="noopener noreferrer">{{ onlineCourse.title }}</a>
           <RouterLink class="mobile-menu-link" to="/toolkit">MEL Toolkit</RouterLink>
           <RouterLink class="mobile-menu-link" to="/contact">Contact</RouterLink>
           <RouterLink v-if="auth.user?.can_manage_consultations || auth.user?.can_manage_content" class="mobile-menu-link" to="/admin">Admin</RouterLink>
@@ -111,6 +114,7 @@ async function logout() {
             <li><RouterLink class="transition-colors hover:text-white" to="/about">About</RouterLink></li>
             <li v-if="publishedCaseStudies.length >= 2"><RouterLink class="transition-colors hover:text-white" to="/case-studies">Case Studies</RouterLink></li>
             <li v-if="publishedLearnProducts.length"><RouterLink class="transition-colors hover:text-white" to="/learn">Training &amp; Courses</RouterLink></li>
+            <li><a class="transition-colors hover:text-white" :href="onlineCourse.href" target="_blank" rel="noopener noreferrer">{{ onlineCourse.title }}</a></li>
             <li><RouterLink class="transition-colors hover:text-white" to="/toolkit">MEL Toolkit</RouterLink></li>
             <li><RouterLink class="transition-colors hover:text-white" to="/capability">Capability Statement</RouterLink></li>
             <li><RouterLink class="transition-colors hover:text-white" to="/contact">Contact</RouterLink></li>

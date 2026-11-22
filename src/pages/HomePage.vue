@@ -6,6 +6,7 @@ import SocialProof from '../components/SocialProof.vue'
 import { publishedCaseStudies } from '../data/caseStudies'
 import { homeContent } from '../data/siteContent'
 import { toolkitGuides } from '../data/toolkitGuides'
+import { onlineCourse } from '../data/onlineCourse'
 import { apiRequest } from '../services/api'
 
 const latestInsights = ref([])
@@ -59,9 +60,9 @@ onMounted(async () => {
           <RouterLink class="inline-flex min-h-11 items-center justify-center rounded-md border border-brand px-5 py-2.5 text-sm font-bold text-brand transition hover:bg-brand hover:text-white" to="/digital-products">
             Digital Products
           </RouterLink>
-          <RouterLink class="inline-flex min-h-11 items-center justify-center rounded-md border border-brand px-5 py-2.5 text-sm font-bold text-brand transition hover:bg-brand hover:text-white" to="/learn">
-            Online Courses
-          </RouterLink>
+          <a class="inline-flex min-h-11 items-center justify-center rounded-md border border-brand px-5 py-2.5 text-sm font-bold text-brand transition hover:bg-brand hover:text-white" :href="onlineCourse.href" target="_blank" rel="noopener noreferrer">
+            {{ onlineCourse.title }}
+          </a>
         </div>
       </div>
     </section>
