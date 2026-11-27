@@ -41,6 +41,32 @@ import { aboutContent, brand, sectors } from '../data/siteContent'
       </div>
     </section>
 
+    <section id="how-we-are-organised" class="scroll-mt-24 bg-paper px-5 py-14 md:py-16 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="max-w-3xl">
+          <p class="text-sm font-bold uppercase tracking-[0.12em] text-brand">Our team</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-navy md:text-4xl">How we’re organised</h2>
+          <p class="mt-4 text-base leading-7 text-muted md:text-lg md:leading-8">{{ aboutContent.organisation.intro }}</p>
+        </div>
+
+        <h3 class="mt-9 text-sm font-bold uppercase tracking-wide text-brand">Who does what</h3>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <article v-for="role in aboutContent.organisation.roles" :key="role.title" class="rounded-xl border border-[#e5dfcd] bg-white p-5">
+            <h4 class="text-base font-bold leading-snug text-navy">{{ role.title }}</h4>
+            <p class="mt-2 text-sm leading-6 text-muted">{{ role.description }}</p>
+          </article>
+        </div>
+
+        <h3 class="mt-9 text-sm font-bold uppercase tracking-wide text-brand">Our working standards</h3>
+        <div class="mt-4 grid gap-4 md:grid-cols-3">
+          <article v-for="standard in aboutContent.organisation.standards" :key="standard.title" class="border-l-4 border-[#c9a227] bg-white p-5">
+            <h4 class="text-lg font-bold text-navy">{{ standard.title }}</h4>
+            <p class="mt-2 text-base leading-7 text-muted">{{ standard.description }}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="bg-paper px-5 py-14 md:py-16 lg:px-8">
       <div class="mx-auto max-w-7xl">
         <h2 class="text-3xl font-bold tracking-tight text-navy md:text-4xl">Sectors we work in</h2>
@@ -73,7 +99,11 @@ import { aboutContent, brand, sectors } from '../data/siteContent'
             </div>
             <div class="flex flex-wrap gap-x-2">
               <dt class="font-semibold text-navy">Registration:</dt>
-              <dd>Registered in Tanzania</dd>
+              <dd>{{ brand.registrationNumber || 'Registered in Tanzania' }}</dd>
+            </div>
+            <div v-if="brand.tin" class="flex flex-wrap gap-x-2">
+              <dt class="font-semibold text-navy">TIN:</dt>
+              <dd>{{ brand.tin }}</dd>
             </div>
             <div class="flex flex-wrap gap-x-2">
               <dt class="font-semibold text-navy">Location:</dt>

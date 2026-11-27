@@ -158,6 +158,22 @@ export const homeContent = {
 export const aboutContent = {
   intro: 'CLM Consultants Limited is a Tanzanian consulting firm, incorporated in Dar es Salaam in 2021, specialising in monitoring, evaluation and learning, data systems and sustainability reporting. We help public institutions, development partners and businesses measure what matters, learn from it and show results with confidence.',
   purpose: 'Building Better Solutions for a Sustainable Future.',
+  // "How we're organised" (from the strategy's Organisation section).
+  organisation: {
+    intro: 'CLM is a director-led specialist firm. Our director leads every assignment and stays involved from start to finish, and we bring in experienced associates for the skills each assignment needs. Every client has one named relationship lead, so you always know who to call.',
+    roles: [
+      { title: 'Director and engagement lead', description: 'Owns the client relationship and the quality of every deliverable; leads evaluations.' },
+      { title: 'Evaluation specialists', description: 'Evaluation design, mixed methods and analysis.' },
+      { title: 'Data and BI analysts', description: 'Digital data collection with KoBoToolbox or ODK, and Power BI dashboards.' },
+      { title: 'Field and survey coordinators', description: 'Fieldwork planning, trained enumerators and data-quality checks.' },
+      { title: 'Facilitators', description: 'Findings and decision workshops in English and Kiswahili.' },
+    ],
+    standards: [
+      { title: 'Depth', description: 'A written method for each of our offers, and associates chosen for real depth in their role.' },
+      { title: 'Reliability', description: 'We answer every client message within one working day, give a delivery date and keep it.' },
+      { title: 'Partnership', description: 'A findings workshop and a follow-up on every assignment. If a need is outside our expertise, we say so and refer you to someone who does it well.' },
+    ],
+  },
   principles: [
     {
       title: 'Start with the decision.',
