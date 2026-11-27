@@ -2,7 +2,6 @@
 import { RouterLink } from 'vue-router'
 import PageBanner from '../components/PageBanner.vue'
 import { publishedLearnProducts } from '../data/learnProducts'
-import { onlineCourse } from '../data/onlineCourse'
 import { workshopFormats } from '../data/siteContent'
 </script>
 
@@ -10,23 +9,7 @@ import { workshopFormats } from '../data/siteContent'
   <div>
     <PageBanner title="Training & Courses" breadcrumb="Training" subtitle="Practical MEL, data and AI skills, from foundations to advanced systems, in English or Kiswahili." large />
 
-    <section class="border-b border-[#e5dfcd] bg-[#e6f3f1] px-5 py-5 lg:px-8">
-      <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-        <div>
-          <p class="text-xs font-bold uppercase tracking-[0.12em] text-brand">Self-paced learning</p>
-          <p class="mt-1 text-base font-semibold text-navy">Ready to start now? Open the online course.</p>
-        </div>
-        <a
-          class="inline-flex min-h-11 items-center justify-center rounded-md bg-brand px-5 py-2.5 text-sm font-bold text-white transition hover:bg-brand-dark"
-          :href="onlineCourse.href"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {{ onlineCourse.title }}
-        </a>
-      </div>
-    </section>
-
+    <!-- Online course link parked until the course lives on this site (src/data/onlineCourse.js). -->
     <section v-if="publishedLearnProducts.length" class="bg-white px-5 py-14 md:py-16 lg:px-8">
       <div class="mx-auto max-w-7xl">
         <div class="max-w-3xl">
