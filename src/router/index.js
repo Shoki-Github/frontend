@@ -5,7 +5,19 @@ const router = createRouter({
   history: createWebHistory(),
   scrollBehavior: (to, from, saved) => {
     if (saved) return saved
-    if (to.hash) return { el: to.hash, top: 96, behavior: 'smooth' }
+    if (to.hash) {
+      // Wait until the target section is on the page (the new page may still
+      // be loading or animating in), then scroll to it. Give up after 3 s.
+      return new Promise((resolve) => {
+        const started = Date.now()
+        const check = () => {
+          if (document.querySelector(to.hash)) setTimeout(() => resolve({ el: to.hash, top: 96, behavior: 'smooth' }), 150)
+          else if (Date.now() - started > 3000) resolve({ top: 0 })
+          else setTimeout(check, 50)
+        }
+        check()
+      })
+    }
     return { top: 0 }
   },
   routes: [
@@ -17,6 +29,7 @@ const router = createRouter({
     { path: '/services/:slug', name: 'service-detail', component: () => import('../pages/ServiceDetailPage.vue'), props: true, meta: { title: 'Service | CLM Consultants Limited' } },
     { path: '/ai-opportunities', name: 'ai-opportunities', component: () => import('../pages/AiOpportunitiesPage.vue'), meta: { title: 'AI for MEL | CLM Consultants Limited', description: 'How CLM uses AI inside monitoring, evaluation and learning: data quality, reporting, evaluation follow-up, Dira 2050 contribution tracking and AI skills for MEL teams.' } },
     { path: '/ai-services', redirect: '/ai-opportunities' },
+    { path: '/dira-2050', name: 'dira-2050', component: () => import('../pages/DiraPage.vue'), meta: { title: 'MEL for Dira 2050 | CLM Consultants Limited', description: 'The MEL skills Dira 2050 and FYDP IV call for: results alignment, high-end indicators, contribution analysis, data quality, delivery labs, scorecards and independent evaluation.' } },
     { path: '/case-studies/:slug', name: 'case-study-detail', component: () => import('../pages/CaseStudyDetailPage.vue'), meta: { title: 'Case Study | CLM Consultants Limited' } },
     { path: '/case-studies', name: 'case-studies', component: () => import('../pages/CaseStudiesPage.vue'), meta: { title: 'Case Studies | CLM Consultants Limited' } },
     // Digital Products page parked until a product is ready (src/pages/DigitalProductsPage.vue).

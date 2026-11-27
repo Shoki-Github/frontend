@@ -101,12 +101,12 @@ onMounted(() => {
         </div>
         <div class="mt-8">
           <p class="text-sm font-bold uppercase tracking-[0.12em] text-brand">Where are you right now?</p>
-          <div class="mt-3 grid gap-3 text-left sm:grid-cols-3">
+          <div class="mt-3 grid gap-3 text-left sm:grid-cols-2 lg:grid-cols-4">
             <a
               v-for="moment in homeContent.buyerMoments"
               :key="moment.question"
               class="group flex items-start justify-between gap-3 rounded-lg border border-[#e5dfcd] bg-white p-4 text-base font-semibold leading-6 text-navy transition hover:border-brand hover:text-brand"
-              :href="`#${moment.offerId}`"
+              :href="moment.to || `#${moment.offerId}`"
             >
               {{ moment.question }}
               <span class="text-brand" aria-hidden="true">→</span>

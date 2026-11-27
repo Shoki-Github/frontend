@@ -65,6 +65,7 @@ export const homeContent = {
     { question: 'Donor report due and your data is still in spreadsheets?', offerId: 'digital-mel-90-days' },
     { question: 'A mid-term or final evaluation coming up?', offerId: 'evaluations-that-get-used' },
     { question: 'Lenders or investors asking for results reporting?', offerId: 'digital-mel-90-days' },
+    { question: 'Aligning your plans and results with Dira 2050?', to: '/dira-2050' },
   ],
   // Delivery commitments shown under "How we work" (from the strategy's
   // "what we refuse" choices).

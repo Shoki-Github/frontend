@@ -110,6 +110,7 @@ async function logout() {
             <li v-if="publishedCaseStudies.length >= 2"><RouterLink class="transition-colors hover:text-white" to="/case-studies">Case Studies</RouterLink></li>
             <li v-if="publishedLearnProducts.length"><RouterLink class="transition-colors hover:text-white" to="/learn">Training &amp; Courses</RouterLink></li>
             <li><RouterLink class="transition-colors hover:text-white" to="/toolkit">MEL Toolkit</RouterLink></li>
+            <li><RouterLink class="transition-colors hover:text-white" to="/dira-2050">MEL for Dira 2050</RouterLink></li>
             <li><RouterLink class="transition-colors hover:text-white" to="/capability">Capability Statement</RouterLink></li>
             <li><RouterLink class="transition-colors hover:text-white" to="/contact">Contact</RouterLink></li>
             <li><RouterLink class="transition-colors hover:text-white" to="/privacy">Privacy</RouterLink></li>
