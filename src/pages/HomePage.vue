@@ -16,7 +16,6 @@ const latestInsights = [...insights]
 // free licence). Loaded only on wider screens without data-saver or
 // reduced-motion; phones keep the still image so the page stays light.
 const showHeroVideo = ref(false)
-const heroVideoPlaying = ref(false)
 
 onMounted(() => {
   const wide = window.matchMedia('(min-width: 768px)').matches
@@ -28,37 +27,33 @@ onMounted(() => {
 
 <template>
   <div>
-    <section class="relative isolate min-h-[78.3vh] overflow-hidden bg-navy">
+    <!-- Hero: still from the Dar es Salaam clip, then the same clip in motion on wider screens. -->
+    <section class="relative isolate min-h-[78.3vh] overflow-hidden bg-navy" aria-hidden="true">
       <img
-        class="hero-still absolute inset-0 -z-20 h-full w-full object-cover"
-        src="/hero-background-poster.jpg"
+        class="absolute inset-0 -z-20 h-full w-full object-cover"
+        src="/hero-dar-aerial-poster.jpg"
         alt=""
         fetchpriority="high"
-        aria-hidden="true"
       />
       <video
         v-if="showHeroVideo"
-        class="absolute inset-0 -z-10 h-full w-full object-cover transition-opacity duration-1000"
-        :class="heroVideoPlaying ? 'opacity-100' : 'opacity-0'"
+        class="absolute inset-0 -z-10 h-full w-full object-cover"
         src="/hero-dar-aerial.mp4"
+        poster="/hero-dar-aerial-poster.jpg"
         autoplay
         muted
         loop
         playsinline
         preload="auto"
-        aria-hidden="true"
-        @playing="heroVideoPlaying = true"
       ></video>
-      <div class="mx-auto max-w-7xl px-5 pb-16 pt-0 md:pb-20 md:pt-4 lg:px-8">
-        <div class="max-w-4xl md:max-w-none">
-          <!-- One line from tablet width up; wraps only on phones, where one line would be too small to read. -->
-          <h1 class="mt-4 inline-block rounded-lg bg-navy/75 px-4 py-2 text-left text-[clamp(1.6rem,5vw,2.5rem)] font-bold leading-tight tracking-tight text-white shadow-lg backdrop-blur-sm md:whitespace-nowrap md:text-[clamp(1.25rem,2.9vw,2.5rem)]">{{ homeContent.title }}</h1>
-        </div>
-      </div>
     </section>
 
-    <section class="bg-paper px-5 py-4 md:py-5 lg:px-8">
-      <div class="mx-auto max-w-4xl text-center">
+    <section class="bg-paper px-5 py-8 md:py-10 lg:px-8">
+      <div class="mx-auto max-w-7xl text-center">
+        <!-- One line from tablet width up; wraps only on phones, where one line would be too small to read. -->
+        <h1 class="text-[clamp(1.6rem,5vw,2.5rem)] font-bold leading-tight tracking-tight text-navy md:whitespace-nowrap md:text-[clamp(1.25rem,2.9vw,2.5rem)]">{{ homeContent.title }}</h1>
+      </div>
+      <div class="mx-auto mt-4 max-w-4xl text-center">
         <p class="mx-auto max-w-3xl text-base leading-7 text-black md:text-lg md:leading-8">{{ homeContent.intro }}</p>
         <div class="mt-3 flex flex-wrap justify-center gap-3">
           <RouterLink class="inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark" to="/services">Explore Our Services</RouterLink>
@@ -199,19 +194,3 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
-/* Slow, subtle zoom so the still hero image has gentle movement. */
-.hero-still {
-  animation: hero-drift 24s ease-in-out infinite alternate;
-  transform-origin: 60% 55%;
-}
-
-@keyframes hero-drift {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-still { animation: none; }
-}
-</style>
