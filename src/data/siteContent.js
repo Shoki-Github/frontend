@@ -91,7 +91,7 @@ export const homeContent = {
       label: 'Signature offer 2',
       title: 'Evaluations That Get Used',
       outcome: 'An independent evaluation whose recommendations become management decisions and tracked actions, not a report that sits on a shelf.',
-      forWhom: 'Programmes, development partners and public institutions commissioning baseline, mid-term or final evaluations.',
+      forWhom: 'Programmes, development partners, public institutions and private-sector companies commissioning baseline, mid-term or final evaluations.',
       steps: [
         { name: 'Questions that matter', timing: 'Inception', detail: 'Link evaluation questions to decisions you need to make, using the OECD-DAC criteria.' },
         { name: 'Credible evidence', timing: 'Fieldwork', detail: 'Mixed methods, household surveys and comparison groups where the design needs them.' },
