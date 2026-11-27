@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import NewsletterSignup from '../components/NewsletterSignup.vue'
 import SocialProof from '../components/SocialProof.vue'
@@ -10,6 +11,19 @@ import { toolkitGuides } from '../data/toolkitGuides'
 const latestInsights = [...insights]
   .sort((a, b) => b.published_at.localeCompare(a.published_at))
   .slice(0, 3)
+
+// Hero video: real drone footage of Dar es Salaam (Pexels video 32555370,
+// free licence). Loaded only on wider screens without data-saver or
+// reduced-motion; phones keep the still image so the page stays light.
+const showHeroVideo = ref(false)
+const heroVideoPlaying = ref(false)
+
+onMounted(() => {
+  const wide = window.matchMedia('(min-width: 768px)').matches
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const saveData = navigator.connection?.saveData === true
+  showHeroVideo.value = wide && !reducedMotion && !saveData
+})
 </script>
 
 <template>
@@ -22,6 +36,19 @@ const latestInsights = [...insights]
         fetchpriority="high"
         aria-hidden="true"
       />
+      <video
+        v-if="showHeroVideo"
+        class="absolute inset-0 -z-10 h-full w-full object-cover transition-opacity duration-1000"
+        :class="heroVideoPlaying ? 'opacity-100' : 'opacity-0'"
+        src="/hero-dar-aerial.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+        @playing="heroVideoPlaying = true"
+      ></video>
       <div class="mx-auto max-w-7xl px-5 pb-16 pt-0 md:pb-20 md:pt-4 lg:px-8">
         <div class="max-w-4xl md:max-w-none">
           <!-- One line from tablet width up; wraps only on phones, where one line would be too small to read. -->
