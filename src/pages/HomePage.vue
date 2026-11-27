@@ -23,8 +23,9 @@ const latestInsights = [...insights]
         aria-hidden="true"
       />
       <div class="mx-auto max-w-7xl px-5 pb-16 pt-0 md:pb-20 md:pt-4 lg:px-8">
-        <div class="max-w-4xl">
-          <h1 class="mt-4 inline-block rounded-lg bg-navy/75 px-4 py-2 text-left text-[clamp(1.6rem,5vw,3rem)] font-bold leading-tight tracking-tight text-white shadow-lg backdrop-blur-sm">{{ homeContent.title }}</h1>
+        <div class="max-w-4xl md:max-w-none">
+          <!-- One line from tablet width up; wraps only on phones, where one line would be too small to read. -->
+          <h1 class="mt-4 inline-block rounded-lg bg-navy/75 px-4 py-2 text-left text-[clamp(1.6rem,5vw,2.5rem)] font-bold leading-tight tracking-tight text-white shadow-lg backdrop-blur-sm md:whitespace-nowrap md:text-[clamp(1.25rem,2.9vw,2.5rem)]">{{ homeContent.title }}</h1>
         </div>
       </div>
     </section>
