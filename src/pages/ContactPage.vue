@@ -10,7 +10,10 @@ const AI_SERVICE = 'AI Solutions'
 const WHATSAPP_NUMBER = '255765785383'
 const organisationTypes = ['Government', 'Development partner', 'NGO', 'Private sector', 'Individual']
 const sent = ref('')
-const form = reactive({
+const failed = ref(false)
+const submitting = ref(false)
+const errors = ref({})
+const emptyForm = {
   name: '',
   organisation: '',
   organisation_type: '',
@@ -19,7 +22,9 @@ const form = reactive({
   service_of_interest: '',
   preferred_language: 'English',
   message: '',
-})
+  company_website: '',
+}
+const form = reactive({ ...emptyForm })
 
 // Pre-fill from links such as /contact?service=...&course=... (Learn page).
 const route = useRoute()
@@ -33,8 +38,9 @@ if (typeof route.query.course === 'string' && route.query.course.length <= 200) 
   form.message = `I would like to discuss: ${route.query.topic}.`
 }
 
-// No server receives the form yet, so the request is handed to the visitor's
-// own email app or WhatsApp, already filled in with what they typed.
+// The form is sent to /api/contact, which emails it to the CLM inbox.
+// WhatsApp (or email, if sending fails) hands the request to the visitor's
+// own app, already filled in with what they typed.
 function composeText() {
   return [
     'Consultation request',
@@ -50,16 +56,47 @@ function composeText() {
   ].filter((line) => line !== null).join('\n')
 }
 
-function submit(event) {
-  const channel = event.submitter?.value === 'whatsapp' ? 'whatsapp' : 'email'
-  const text = composeText()
-  if (channel === 'whatsapp') {
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank', 'noopener')
-  } else {
-    const subject = `Consultation request: ${form.service_of_interest}`
-    window.location.href = `mailto:${brand.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`
+function openWhatsApp() {
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(composeText())}`, '_blank', 'noopener')
+  sent.value = 'whatsapp'
+}
+
+function openEmail() {
+  const subject = `Consultation request: ${form.service_of_interest}`
+  window.location.href = `mailto:${brand.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(composeText())}`
+  sent.value = 'email'
+}
+
+async function sendRequest() {
+  errors.value = {}
+  failed.value = false
+  sent.value = ''
+  submitting.value = true
+  try {
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(form),
+    })
+    const payload = await response.json().catch(() => ({}))
+    if (response.status === 422) {
+      errors.value = payload.errors || {}
+      return
+    }
+    if (!response.ok) throw new Error(payload.message || `Status ${response.status}`)
+    sent.value = 'server'
+    Object.assign(form, emptyForm)
+  } catch (error) {
+    console.error('Unable to send the consultation request.', error)
+    failed.value = true
+  } finally {
+    submitting.value = false
   }
-  sent.value = channel
+}
+
+function submit(event) {
+  if (event.submitter?.value === 'whatsapp') openWhatsApp()
+  else sendRequest()
 }
 </script>
 
@@ -94,9 +131,19 @@ function submit(event) {
         </div>
 
         <form class="rounded-xl border border-[#e5dfcd] bg-white p-5 shadow-[0_12px_36px_rgba(27,42,74,0.07)] md:p-8" @submit.prevent="submit">
-          <p v-if="sent" class="mb-6 rounded-lg border border-[#a7d6ca] bg-[#edf7f3] p-4 text-base leading-6 text-navy" role="status">
+          <p v-if="sent === 'server'" class="mb-6 rounded-lg border border-[#a7d6ca] bg-[#edf7f3] p-4 text-base leading-6 text-navy" role="status">
+            Thank you, your request has been sent. We’ll be in touch within two working days.
+          </p>
+          <p v-else-if="sent" class="mb-6 rounded-lg border border-[#a7d6ca] bg-[#edf7f3] p-4 text-base leading-6 text-navy" role="status">
             Your {{ sent === 'whatsapp' ? 'WhatsApp' : 'email app' }} should now be open with your request filled in. Press send there to reach us. If nothing opened, email <a class="font-semibold underline" :href="`mailto:${brand.email}`">{{ brand.email }}</a> directly.
           </p>
+          <div v-if="failed" class="mb-6 rounded-lg border border-[#e3c88a] bg-[#fbf6e8] p-4 text-base leading-6 text-navy" role="alert">
+            We couldn’t send your request just now. Your details are still in the form, so you can send them another way:
+            <div class="mt-3 flex flex-wrap gap-3">
+              <button class="inline-flex min-h-10 items-center rounded-md bg-brand px-4 text-sm font-bold text-white hover:bg-brand-dark" type="button" @click="openEmail">Send by email instead</button>
+              <button class="inline-flex min-h-10 items-center rounded-md border border-brand px-4 text-sm font-bold text-brand hover:bg-brand hover:text-white" type="button" @click="openWhatsApp">Send on WhatsApp</button>
+            </div>
+          </div>
 
           <div class="grid gap-5 sm:grid-cols-2">
             <label class="field-label">Full name <span aria-hidden="true">*</span>
@@ -136,15 +183,24 @@ function submit(event) {
             </label>
           </div>
 
+          <p v-if="Object.keys(errors).length" class="mt-5 text-sm font-medium text-[#8d2b24]" role="alert">
+            <span v-for="(messages, field) in errors" :key="field" class="block">{{ messages[0] }}</span>
+          </p>
+
+          <label class="honeypot" aria-hidden="true">
+            Leave this field empty
+            <input v-model="form.company_website" tabindex="-1" autocomplete="off" />
+          </label>
+
           <div class="mt-6 flex flex-wrap gap-3">
-            <button class="inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark" type="submit" value="email">
-              Send by email
+            <button class="inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark disabled:cursor-wait disabled:opacity-60" type="submit" value="send" :disabled="submitting">
+              {{ submitting ? 'Sending…' : 'Send request' }}
             </button>
             <button class="inline-flex min-h-12 items-center justify-center rounded-md border border-brand px-6 py-3 text-sm font-bold text-brand transition hover:bg-brand hover:text-white" type="submit" value="whatsapp">
-              Send on WhatsApp
+              Send on WhatsApp instead
             </button>
           </div>
-          <p class="mt-4 text-sm leading-6 text-muted">Either button opens your own email app or WhatsApp with this request filled in, ready for you to send. Please don’t include passwords or sensitive personal information.</p>
+          <p class="mt-4 text-sm leading-6 text-muted">We’ll use your information only to respond to this request. Please don’t include passwords or sensitive personal information.</p>
         </form>
       </div>
     </section>
@@ -193,4 +249,12 @@ function submit(event) {
   font-weight: 500;
 }
 
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 </style>
