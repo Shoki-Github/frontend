@@ -7,9 +7,9 @@ export const brand = {
   directorEmail: 'pshoki@clmconsultants.co.tz',
   phoneNumbers: ['+255 765 785 383', '+255 685 993 590'],
   website: 'https://clmconsultants.co.tz',
-  // Shown on the capability statement once filled in (e.g. BRELA number, TIN).
-  registrationNumber: '',
-  tin: '',
+  // Shown on the capability statement.
+  registrationNumber: 'BRELA 152652259 (incorporated 13 July 2021)',
+  tin: '152-652-259',
 }
 
 export const homeContent = {
@@ -92,7 +92,7 @@ export const homeContent = {
 }
 
 export const aboutContent = {
-  intro: 'CLM Consultants Limited is a Tanzanian consulting firm, established in Dar es Salaam in 2020, specialising in monitoring, evaluation and learning, data systems and sustainability reporting. We help public institutions, development partners and businesses measure what matters, learn from it and show results with confidence.',
+  intro: 'CLM Consultants Limited is a Tanzanian consulting firm, incorporated in Dar es Salaam in 2021, specialising in monitoring, evaluation and learning, data systems and sustainability reporting. We help public institutions, development partners and businesses measure what matters, learn from it and show results with confidence.',
   purpose: 'Building Better Solutions for a Sustainable Future.',
   principles: [
     {

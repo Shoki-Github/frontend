@@ -1,6 +1,7 @@
 import { brand } from '../data/siteContent'
 import { serviceLines } from '../data/serviceLines'
 import { toolkitGuides } from '../data/toolkitGuides'
+import { insights } from '../data/insights'
 
 const defaultTitle = 'CLM Consultants Limited | Evidence, MEL & AI-enabled services in Tanzania'
 const defaultDescription = 'CLM Consultants Limited helps organisations in Tanzania strengthen MEL, use data and AI, and improve performance through evaluation, dashboards and practical training.'
@@ -77,9 +78,12 @@ export function applyRouteMetadata(route) {
   const guide = route.name === 'toolkit-guide'
     ? toolkitGuides.find((item) => item.slug === route.params.slug)
     : null
-  const detail = service || guide
+  const insight = route.name === 'insight-detail'
+    ? insights.find((item) => item.slug === route.params.slug)
+    : null
+  const detail = service || guide || insight
   const title = detail ? `${detail.title} | CLM Consultants Limited` : route.meta.title
-  const description = detail ? detail.summary : route.meta.description
+  const description = detail ? (detail.summary || detail.excerpt) : route.meta.description
 
   setPageMetadata({
     title,

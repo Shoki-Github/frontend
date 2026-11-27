@@ -1,43 +1,27 @@
 <script setup>
-import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import NewsletterSignup from '../components/NewsletterSignup.vue'
 import SocialProof from '../components/SocialProof.vue'
 import { publishedCaseStudies } from '../data/caseStudies'
+import { insights } from '../data/insights'
 import { homeContent } from '../data/siteContent'
 import { toolkitGuides } from '../data/toolkitGuides'
-import { apiRequest } from '../services/api'
 
-const latestInsights = ref([])
-
-onMounted(async () => {
-  try {
-    const response = await apiRequest('/news?per_page=3')
-    const articles = response.data?.data
-    if (!Array.isArray(articles)) throw new TypeError('Expected a paginated insights response.')
-    const datedInsights = articles.filter((article) => article.published_at)
-    if (datedInsights.length >= 3) latestInsights.value = datedInsights.slice(0, 3)
-  } catch (error) {
-    console.error('Unable to load latest insights.', error)
-  }
-})
+const latestInsights = [...insights]
+  .sort((a, b) => b.published_at.localeCompare(a.published_at))
+  .slice(0, 3)
 </script>
 
 <template>
   <div>
     <section class="relative isolate min-h-[78.3vh] overflow-hidden bg-navy">
-      <video
-        class="absolute inset-0 -z-20 h-full w-full object-cover"
-        src="/hero-background.mp4"
-        poster="/hero-background-poster.jpg"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
+      <img
+        class="hero-still absolute inset-0 -z-20 h-full w-full object-cover"
+        src="/hero-background-poster.jpg"
+        alt=""
         fetchpriority="high"
         aria-hidden="true"
-      ></video>
+      />
       <div class="mx-auto max-w-7xl px-5 pb-16 pt-0 md:pb-20 md:pt-4 lg:px-8">
         <div class="max-w-4xl">
           <h1 class="mt-4 inline-block rounded-lg bg-navy/75 px-4 py-2 text-left text-[clamp(1.6rem,5vw,3rem)] font-bold leading-tight tracking-tight text-white shadow-lg backdrop-blur-sm">{{ homeContent.title }}</h1>
@@ -186,3 +170,20 @@ onMounted(async () => {
     </section>
   </div>
 </template>
+
+<style scoped>
+/* Slow, subtle zoom so the still hero image has gentle movement. */
+.hero-still {
+  animation: hero-drift 24s ease-in-out infinite alternate;
+  transform-origin: 60% 55%;
+}
+
+@keyframes hero-drift {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-still { animation: none; }
+}
+</style>

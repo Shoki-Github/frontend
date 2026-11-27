@@ -1,27 +1,12 @@
 <script setup>
-import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import NewsletterSignup from '../components/NewsletterSignup.vue'
 import PageBanner from '../components/PageBanner.vue'
-import { apiRequest } from '../services/api'
+import { insights } from '../data/insights'
 
-const articles = ref([])
-const loading = ref(true)
-const failure = ref(false)
-
-onMounted(async () => {
-  try {
-    const response = await apiRequest('/news')
-    const results = response.data?.data
-    if (!Array.isArray(results)) throw new TypeError('Expected a paginated insights response.')
-    articles.value = results
-  } catch (error) {
-    // No insights server is connected yet; show the empty state, not an error.
-    console.error('Unable to load insights.', error)
-  } finally {
-    loading.value = false
-  }
-})
+const articles = [...insights].sort((a, b) => b.published_at.localeCompare(a.published_at))
+const loading = false
+const failure = false
 </script>
 
 <template>

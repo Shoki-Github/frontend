@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url'
 import { brand } from '../src/data/siteContent.js'
 import { serviceLines } from '../src/data/serviceLines.js'
 import { toolkitGuides } from '../src/data/toolkitGuides.js'
+import { insights } from '../src/data/insights.js'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
@@ -33,6 +34,10 @@ for (const service of serviceLines) {
 }
 for (const guide of toolkitGuides) {
   pages.set(`/toolkit/${guide.slug}`, { title: `${guide.title} | CLM Consultants Limited`, description: guide.summary })
+}
+
+for (const insight of insights) {
+  pages.set(`/insights/${insight.slug}`, { title: `${insight.title} | CLM Consultants Limited`, description: insight.excerpt })
 }
 
 const defaultDescription = pages.get('/')?.description || ''
