@@ -71,10 +71,10 @@ import { aboutContent, brand, sectors } from '../data/siteContent'
       <div class="mx-auto max-w-7xl">
         <h2 class="text-3xl font-bold tracking-tight text-navy md:text-4xl">Sectors we work in</h2>
         <div class="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-          <article v-for="sector in sectors" :key="sector.title" class="rounded-xl border border-[#e5dfcd] bg-white p-5">
-            <h3 class="text-lg font-bold text-navy">{{ sector.title }}</h3>
+          <RouterLink v-for="sector in sectors" :key="sector.title" class="group rounded-xl border border-[#e5dfcd] bg-white p-5 transition hover:border-brand" :to="{ name: 'sector', params: { slug: sector.slug } }">
+            <h3 class="text-lg font-bold text-navy group-hover:text-brand">{{ sector.title }} <span aria-hidden="true">→</span></h3>
             <p class="mt-2 text-base leading-7 text-muted">{{ sector.description }}</p>
-          </article>
+          </RouterLink>
         </div>
       </div>
     </section>

@@ -29,6 +29,7 @@ const router = createRouter({
     { path: '/services/:slug', name: 'service-detail', component: () => import('../pages/ServiceDetailPage.vue'), props: true, meta: { title: 'Service | CLM Consultants Limited' } },
     { path: '/ai-opportunities', name: 'ai-opportunities', component: () => import('../pages/AiOpportunitiesPage.vue'), meta: { title: 'AI for MEL | CLM Consultants Limited', description: 'How CLM uses AI inside monitoring, evaluation and learning: data quality, reporting, evaluation follow-up, Dira 2050 contribution tracking and AI skills for MEL teams.' } },
     { path: '/ai-services', redirect: '/ai-opportunities' },
+    { path: '/sectors/:slug', name: 'sector', component: () => import('../pages/SectorPage.vue'), meta: { title: 'Sector | CLM Consultants Limited' } },
     { path: '/dira-2050', name: 'dira-2050', component: () => import('../pages/DiraPage.vue'), meta: { title: 'MEL for Dira 2050 | CLM Consultants Limited', description: 'The MEL skills Dira 2050 and FYDP IV call for: results alignment, high-end indicators, contribution analysis, data quality, delivery labs, scorecards and independent evaluation.' } },
     { path: '/case-studies/:slug', name: 'case-study-detail', component: () => import('../pages/CaseStudyDetailPage.vue'), meta: { title: 'Case Study | CLM Consultants Limited' } },
     { path: '/case-studies', name: 'case-studies', component: () => import('../pages/CaseStudiesPage.vue'), meta: { title: 'Case Studies | CLM Consultants Limited' } },

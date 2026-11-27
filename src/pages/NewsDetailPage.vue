@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import DataBriefChart from '../components/DataBriefChart.vue'
 import PageBanner from '../components/PageBanner.vue'
 import { insights } from '../data/insights'
 
@@ -22,6 +23,7 @@ const article = computed(() => insights.find((item) => item.slug === route.param
           </p>
           <h2 class="mt-5 text-3xl font-bold leading-tight tracking-tight text-navy md:text-4xl">{{ article.title }}</h2>
           <p class="mt-5 border-b border-[#e5dfcd] pb-7 text-lg leading-8 text-muted">{{ article.excerpt }}</p>
+          <DataBriefChart v-if="article.chart" :chart="article.chart" />
           <div class="mt-8 whitespace-pre-line text-base leading-7 text-muted">{{ article.body }}</div>
           <div class="mt-10 rounded-xl bg-[#e6f3f1] p-6">
             <p class="text-base font-semibold text-navy">Want to discuss how this applies to your organisation?</p>

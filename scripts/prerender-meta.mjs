@@ -6,7 +6,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { brand } from '../src/data/siteContent.js'
+import { brand, sectors } from '../src/data/siteContent.js'
 import { serviceLines } from '../src/data/serviceLines.js'
 import { toolkitGuides } from '../src/data/toolkitGuides.js'
 import { insights } from '../src/data/insights.js'
@@ -36,6 +36,9 @@ for (const guide of toolkitGuides) {
   pages.set(`/toolkit/${guide.slug}`, { title: `${guide.title} | CLM Consultants Limited`, description: guide.summary })
 }
 
+for (const sector of sectors) {
+  pages.set(`/sectors/${sector.slug}`, { title: `${sector.title}: MEL and evaluation | CLM Consultants Limited`, description: sector.description })
+}
 for (const insight of insights) {
   pages.set(`/insights/${insight.slug}`, { title: `${insight.title} | CLM Consultants Limited`, description: insight.excerpt })
 }

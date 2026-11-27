@@ -3,13 +3,50 @@
 // Body text: paragraphs separated by a blank line.
 export const insights = [
   {
+    slug: 'stunting-48-to-30',
+    type: 'data-brief',
+    title: 'Stunting fell from 48% to 30%. Tracking the rest of the way is harder',
+    category: 'Data brief · Health',
+    published_at: '2026-11-27',
+    author: 'CLM Consultants Limited',
+    reading_time: 2,
+    excerpt: 'Tanzania cut child stunting by 18 percentage points between 1999 and 2022. The survey that measures it comes every five to seven years, so yearly results reporting needs better evidence in between.',
+    chart: {
+      title: 'Stunting among children under five, Tanzania (%)',
+      unit: '%',
+      max: 50,
+      points: [
+        { x: 1999, label: '1999', value: 48 },
+        { x: 2004.5, label: '2004–05', value: 44 },
+        { x: 2010, label: '2010', value: 42 },
+        { x: 2015.5, label: '2015–16', value: 34 },
+        { x: 2022, label: '2022', value: 30 },
+      ],
+      source: 'Source: Tanzania Demographic and Health Survey and Malaria Indicator Survey 2022, Key Indicators Report (MoH, NBS, OCGS and ICF), trend figure for 1999–2022.',
+      sourceUrl: 'https://dhsprogram.com/pubs/pdf/PR144/PPR144.pdf',
+    },
+    body: `Three in ten Tanzanian children under five were stunted in 2022, down from almost one in two in 1999. That is real progress on a core measure of Dira 2050's second pillar, human capabilities and social development.
+
+The national average hides wide gaps. Stunting was 30.4% on the Mainland and 17.6% in Zanzibar, and 37.5% in the South West Highlands zone. Boys were more affected than girls: 33.3% against 26.6%.
+
+For anyone reporting results, the harder problem is timing. The survey behind these figures ran in 1999, 2004–05, 2010, 2015–16 and 2022: gaps of five to seven years. FYDP IV asks for monthly, quarterly and annual results reporting. Between surveys, programmes must rely on routine data, such as growth monitoring at health facilities, or on their own surveys.
+
+Three practical lessons follow:
+
+• Check routine data before it becomes a national number. Growth-monitoring records are only useful if weights, heights and ages are recorded consistently.
+• Report the breakdown, not only the average. Regional and sex differences show where effort is needed most.
+• Claim contribution, not attribution. Many programmes work on nutrition at once; a credible results story shows how yours contributed.
+
+This is the first of our monthly data briefs: one official indicator, one chart, and what it means for measuring results.`,
+  },
+  {
     slug: 'from-monitoring-to-impact',
-    title: 'From monitoring to impact: what makes a MEL system useful',
+    title: 'A MEL system earns its cost only when it changes decisions',
     category: 'MEL systems',
     published_at: '2026-03-24',
     author: 'CLM Consultants Limited',
     reading_time: 3,
-    excerpt: 'Many organisations collect plenty of monitoring data but learn little from it. Here is what separates a MEL system that informs decisions from one that only fills reports.',
+    excerpt: 'Plenty of programmes collect monitoring data and learn little from it. Five things separate a system that informs decisions from one that only fills reports.',
     body: `Most organisations we work with already monitor their activities. They count trainings held, people reached and funds spent. The harder question is whether any of this changes what they decide to do next. A monitoring, evaluation and learning (MEL) system earns its cost only when it does.
 
 Monitoring tells you whether activities are happening as planned. It is necessary, but on its own it rarely explains why results are, or are not, appearing. That is the job of evaluation: asking whether the programme is relevant, effective and likely to last, and testing the assumptions in your theory of change.
@@ -30,12 +67,12 @@ If you are reviewing or setting up a MEL system and want a second view, we are h
   },
   {
     slug: 'transforming-data-into-decisions',
-    title: 'Turning data into decisions: four steps that work',
+    title: 'Start with the decision, not the dashboard',
     category: 'Data & BI',
     published_at: '2026-03-24',
     author: 'CLM Consultants Limited',
     reading_time: 3,
-    excerpt: 'Data has little value until someone uses it to decide something. Four practical steps to move from raw data to better management decisions.',
+    excerpt: 'Data has value only when someone uses it to decide something. Four steps, taken in the right order, turn raw data into better management.',
     body: `Organisations generate more data every year, from programme records and surveys to finance and service systems. Yet many managers still make key decisions on instinct, because the data they need is scattered, late or hard to read. Closing that gap is less about technology and more about working in the right order.
 
 1. Start with the decisions, not the data.
@@ -54,12 +91,12 @@ Done in this order, even a modest investment can change how an organisation mana
   },
   {
     slug: 'digital-solutions-that-drive-results',
-    title: 'Choosing digital solutions that actually deliver results',
+    title: 'Why new digital systems get abandoned, and how to avoid it',
     category: 'Digital & IT',
     published_at: '2026-03-24',
     author: 'CLM Consultants Limited',
     reading_time: 3,
-    excerpt: 'New systems promise efficiency, but many end up under-used. A short checklist for choosing and introducing digital tools that pay off.',
+    excerpt: 'Systems are often bought, launched and then quietly dropped. A short checklist for choosing and introducing tools that people keep using.',
     body: `Digital tools are now part of how almost every organisation works, from data collection apps and dashboards to cloud storage and automated reporting. The promise is better efficiency and service. The reality is often a system that is bought, launched and then quietly abandoned. A few principles make the difference.
 
 Begin with the problem.

@@ -25,7 +25,7 @@ defineProps({
         <h2 class="text-3xl font-bold tracking-tight text-navy md:text-4xl">Sectors we work in</h2>
         <ul class="mt-7 space-y-3">
           <li v-for="sector in sectors" :key="sector.title" class="border-l-4 border-[#c9a227] bg-paper p-4">
-            <p class="font-bold text-navy">{{ sector.title }}</p>
+            <RouterLink class="font-bold text-navy hover:text-brand" :to="{ name: 'sector', params: { slug: sector.slug } }">{{ sector.title }} <span aria-hidden="true">→</span></RouterLink>
             <p class="mt-1 text-sm leading-6 text-muted">{{ sector.description }}</p>
           </li>
         </ul>
