@@ -69,7 +69,7 @@ export const homeContent = {
       label: 'Signature offer 1',
       title: 'Digital MEL in 90 Days',
       outcome: 'Move your programme from paper forms and scattered spreadsheets to live, reliable reporting that your managers actually use, in about 90 days.',
-      forWhom: 'NGOs, projects and public agencies whose reporting is late, manual or hard to trust.',
+      forWhom: 'NGOs, projects, public agencies and private-sector companies whose reporting is late, manual or hard to trust.',
       steps: [
         { name: 'Diagnose', timing: 'Weeks 1–2', detail: 'Review your results framework, data flows and the reports you owe.' },
         { name: 'Design', timing: 'Weeks 3–4', detail: 'Agree indicators, clear definitions and simple data-quality checks.' },
