@@ -59,6 +59,55 @@ export const homeContent = {
       href: '/services/training-capacity',
     },
   ],
+  // The two offers the homepage leads with. Each: what changes for the
+  // client (outcome), who it is for, the repeatable steps (mechanism) and
+  // the results we track. No result figures are claimed here; add real ones
+  // from completed assignments as case studies.
+  signatureOffers: [
+    {
+      id: 'digital-mel-90-days',
+      label: 'Signature offer 1',
+      title: 'Digital MEL in 90 Days',
+      outcome: 'Move your programme from paper forms and scattered spreadsheets to live, reliable reporting that your managers actually use, in about 90 days.',
+      forWhom: 'NGOs, projects and public agencies whose reporting is late, manual or hard to trust.',
+      steps: [
+        { name: 'Diagnose', timing: 'Weeks 1–2', detail: 'Review your results framework, data flows and the reports you owe.' },
+        { name: 'Design', timing: 'Weeks 3–4', detail: 'Agree indicators, clear definitions and simple data-quality checks.' },
+        { name: 'Build', timing: 'Weeks 5–9', detail: 'Set up digital data collection (KoBoToolbox or ODK) and a Power BI dashboard.' },
+        { name: 'Train and launch', timing: 'Weeks 10–12', detail: 'Train your team and run the first live reporting cycle together.' },
+        { name: '30-day check', timing: 'After launch', detail: 'Review how the system is used, fix gaps and hand over fully.' },
+      ],
+      results: [
+        'Share of indicators reported on time',
+        'Days needed to produce a routine report, before and after',
+        'Dashboard used in management meetings',
+        'Data-quality issues found and fixed',
+      ],
+      topic: 'Digital MEL in 90 Days',
+      learnMore: '/services/data-dashboards-bi',
+    },
+    {
+      id: 'evaluations-that-get-used',
+      label: 'Signature offer 2',
+      title: 'Evaluations That Get Used',
+      outcome: 'An independent evaluation whose recommendations become management decisions and tracked actions, not a report that sits on a shelf.',
+      forWhom: 'Programmes, development partners and public institutions commissioning baseline, mid-term or final evaluations.',
+      steps: [
+        { name: 'Questions that matter', timing: 'Inception', detail: 'Link evaluation questions to decisions you need to make, using the OECD-DAC criteria.' },
+        { name: 'Credible evidence', timing: 'Fieldwork', detail: 'Mixed methods, household surveys and comparison groups where the design needs them.' },
+        { name: 'Findings workshop', timing: 'Analysis', detail: 'Test and refine findings with your staff and partners before the final report.' },
+        { name: 'Management response', timing: 'Reporting', detail: 'Each recommendation accepted, adapted or declined, with an owner and a date.' },
+        { name: 'Follow-up tracking', timing: '3–6 months', detail: 'Track actions with our Evidence-to-Action tool and review progress together.' },
+      ],
+      results: [
+        'Recommendations with an agreed management response',
+        'Actions completed at the follow-up review',
+        'Decisions recorded from the evaluation',
+      ],
+      topic: 'Evaluations That Get Used',
+      learnMore: '/ai-opportunities#evidence-to-action-pilot',
+    },
+  ],
   featuredOffer: {
     title: 'Turn evaluation findings into action.',
     description: 'Our AI-enabled Evidence-to-Action Pilot helps your organisation organise recommendations, record management decisions and track follow-up actions.',

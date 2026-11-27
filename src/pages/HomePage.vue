@@ -96,43 +96,77 @@ onMounted(() => {
       <div class="mx-auto mt-4 max-w-4xl text-center">
         <p class="mx-auto max-w-3xl text-base leading-7 text-black md:text-lg md:leading-8">{{ homeContent.intro }}</p>
         <div class="mt-3 flex flex-wrap justify-center gap-3">
-          <RouterLink class="inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark" to="/services">Explore Our Services</RouterLink>
+          <a class="inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark" href="#signature-offers">See Our Signature Offers</a>
           <RouterLink class="inline-flex min-h-12 items-center justify-center rounded-md border border-black px-6 py-3 text-sm font-bold text-black transition hover:bg-black hover:text-white" to="/contact">Discuss Your Needs</RouterLink>
         </div>
       </div>
     </section>
 
-    <section class="bg-paper px-5 py-14 md:py-16 lg:px-8">
+    <section id="signature-offers" class="scroll-mt-20 bg-white px-5 py-14 md:py-16 lg:px-8">
       <div class="mx-auto max-w-7xl">
         <div class="max-w-3xl">
-          <p class="text-sm font-bold uppercase tracking-[0.12em] text-brand">Services</p>
-          <h2 class="mt-3 text-3xl font-bold tracking-tight text-navy md:text-4xl">What we do</h2>
+          <p class="text-sm font-bold uppercase tracking-[0.12em] text-brand">Signature offers</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-navy md:text-4xl">Two things we do best</h2>
+          <p class="mt-3 text-base leading-7 text-muted">Each offer is built around a clear result for your organisation, a tested way of getting there, and measures that show it worked.</p>
         </div>
-        <div class="mt-7 grid gap-4 md:grid-cols-2">
-          <RouterLink
-            v-for="service in homeContent.serviceCategories"
-            :key="service.title"
-            class="group rounded-xl border border-[#e5dfcd] bg-white p-6 transition hover:border-brand hover:shadow-[0_10px_28px_rgba(27,42,74,0.08)]"
-            :to="service.href"
+
+        <div class="mt-8 grid gap-6 lg:grid-cols-2">
+          <article
+            v-for="offer in homeContent.signatureOffers"
+            :key="offer.id"
+            class="flex flex-col rounded-2xl border border-[#e5dfcd] bg-paper p-6 shadow-[0_12px_36px_rgba(27,42,74,0.06)] md:p-8"
           >
-            <h3 class="text-xl font-bold text-navy group-hover:text-brand">{{ service.title }}</h3>
-            <p class="mt-3 text-base leading-7 text-muted">{{ service.summary }}</p>
-            <span class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand">Explore service <span aria-hidden="true">→</span></span>
-          </RouterLink>
+            <p class="text-xs font-bold uppercase tracking-[0.12em] text-[#9a7a12]">{{ offer.label }}</p>
+            <h3 class="mt-2 text-2xl font-bold tracking-tight text-navy md:text-3xl">{{ offer.title }}</h3>
+            <p class="mt-4 text-lg font-semibold leading-8 text-navy">{{ offer.outcome }}</p>
+            <p class="mt-3 text-base leading-7 text-muted"><span class="font-bold text-navy">For: </span>{{ offer.forWhom }}</p>
+
+            <h4 class="mt-6 text-sm font-bold uppercase tracking-wide text-brand">How it works</h4>
+            <ol class="mt-3 space-y-3">
+              <li v-for="(step, i) in offer.steps" :key="step.name" class="flex gap-3">
+                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">{{ i + 1 }}</span>
+                <p class="text-base leading-7 text-muted">
+                  <span class="font-bold text-navy">{{ step.name }}</span>
+                  <span class="text-sm text-muted"> · {{ step.timing }}</span><br />
+                  {{ step.detail }}
+                </p>
+              </li>
+            </ol>
+
+            <h4 class="mt-6 text-sm font-bold uppercase tracking-wide text-brand">What we measure with you</h4>
+            <ul class="mt-3 space-y-2">
+              <li v-for="result in offer.results" :key="result" class="flex gap-2 text-base leading-7 text-muted">
+                <span class="mt-0.5 font-bold text-brand" aria-hidden="true">✓</span>{{ result }}
+              </li>
+            </ul>
+
+            <div class="mt-auto flex flex-wrap gap-3 pt-8">
+              <RouterLink class="inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark" :to="{ path: '/contact', query: { topic: offer.topic } }">
+                Discuss this offer
+              </RouterLink>
+              <RouterLink class="inline-flex min-h-12 items-center justify-center rounded-md border border-brand px-6 py-3 text-sm font-bold text-brand transition hover:bg-brand hover:text-white" :to="offer.learnMore">
+                Learn more
+              </RouterLink>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="bg-[#e6f3f1] px-5 py-12 text-navy md:py-14 lg:px-8">
-      <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
-        <div class="max-w-3xl">
-          <p class="text-sm font-bold uppercase tracking-[0.12em] text-brand">Featured offer</p>
-          <h2 class="mt-3 text-2xl font-bold leading-tight md:text-3xl">{{ homeContent.featuredOffer.title }}</h2>
-          <p class="mt-3 text-base leading-7 text-muted">{{ homeContent.featuredOffer.description }}</p>
+    <section class="bg-paper px-5 py-10 md:py-12 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <h2 class="text-xl font-bold tracking-tight text-navy md:text-2xl">Other ways we help</h2>
+        <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <RouterLink
+            v-for="service in homeContent.serviceCategories"
+            :key="service.title"
+            class="group rounded-lg border border-[#e5dfcd] bg-white p-4 transition hover:border-brand"
+            :to="service.href"
+          >
+            <h3 class="text-base font-bold text-navy group-hover:text-brand">{{ service.title }} <span aria-hidden="true">→</span></h3>
+            <p class="mt-1 text-sm leading-6 text-muted">{{ service.summary }}</p>
+          </RouterLink>
         </div>
-        <RouterLink class="inline-flex min-h-12 shrink-0 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark" :to="homeContent.featuredOffer.href">
-          Explore the Pilot
-        </RouterLink>
       </div>
     </section>
 
