@@ -191,7 +191,7 @@ export const aboutContent = {
   founder: {
     name: 'Pantaleon Shoki',
     role: 'Founder & Director',
-    biography: 'Pantaleon is a monitoring, evaluation and learning practitioner with more than 30 years of experience across Tanzania and East Africa. He holds a BA in Economics from the University of Dar es Salaam and an MA in Monitoring and Evaluation from the Open University of Tanzania, and is a PhD candidate in Monitoring, Measurement and Evaluation at EUCLID University. He is a member of the Tanzania Evaluation Association (TanEA), where he serves as Executive Secretary. His work includes leading evaluations, designing national and institutional MEL systems, and building public- and private-sector teams’ capacity to use evidence.',
+    biography: 'Pantaleon is a trained social sector analyst and monitoring, evaluation and learning practitioner with more than 30 years of experience across Tanzania and East Africa. His projects span health, education, water and sanitation, and food security and agriculture. He holds a BA in Economics from the University of Dar es Salaam and an MA in Monitoring and Evaluation from the Open University of Tanzania, and is a PhD candidate in Monitoring, Measurement and Evaluation at EUCLID University. He is a member of the Tanzania Evaluation Association (TanEA), where he serves as Executive Secretary. His work includes leading evaluations, designing national and institutional MEL systems, and building public- and private-sector teams’ capacity to use evidence.',
   },
   team: 'CLM draws on a network of specialists in statistics, data engineering, gender, ESG and sector expertise, assembled for each assignment.',
 }
@@ -202,8 +202,12 @@ export const sectors = [
     description: 'M&E for health programmes and facilities, including indicators, routine data and programme evaluations.',
   },
   {
-    title: 'Agriculture & livelihoods',
-    description: 'Household surveys and evaluations of smallholder, market and livelihoods programmes.',
+    title: 'Food security & agriculture',
+    description: 'Household surveys and evaluations of food security, smallholder, market and livelihoods programmes.',
+  },
+  {
+    title: 'Water & sanitation',
+    description: 'Baselines, monitoring and evaluations for water supply, sanitation and hygiene (WASH) programmes.',
   },
   {
     title: 'Education & skills',
