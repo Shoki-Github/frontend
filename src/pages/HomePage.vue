@@ -13,21 +13,27 @@ const latestInsights = [...insights]
   .slice(0, 3)
 
 // Hero video: real drone footage of Dar es Salaam (Pexels video 32555370,
-// free licence). Loaded only on wider screens without data-saver or
-// reduced-motion; phones keep the still image so the page stays light.
-const showHeroVideo = ref(false)
+// free licence), re-encoded to small WebM files:
+//   hero-dar-aerial.webm         1280x720, ~3.7 MB (laptops/desktops)
+//   hero-dar-aerial-mobile.webm   854x480, ~1.9 MB (phones)
+//   hero-dar-aerial.mp4          original 16 MB, only for desktop browsers without WebM
+// Phones without WebM, data-saver and reduced-motion keep the still image.
+const heroVideoSrc = ref('')
 
 onMounted(() => {
-  const wide = window.matchMedia('(min-width: 768px)').matches
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const saveData = navigator.connection?.saveData === true
-  showHeroVideo.value = wide && !reducedMotion && !saveData
+  if (reducedMotion || saveData) return
+  const wide = window.matchMedia('(min-width: 768px)').matches
+  const webm = document.createElement('video').canPlayType('video/webm; codecs="vp9"') !== ''
+  if (wide) heroVideoSrc.value = webm ? '/hero-dar-aerial.webm' : '/hero-dar-aerial.mp4'
+  else if (webm) heroVideoSrc.value = '/hero-dar-aerial-mobile.webm'
 })
 </script>
 
 <template>
   <div>
-    <!-- Hero: still from the Dar es Salaam clip, then the same clip in motion on wider screens. -->
+    <!-- Hero: still from the Dar es Salaam clip, then the same clip in motion. -->
     <section class="relative isolate min-h-[78.3vh] overflow-hidden bg-navy" aria-hidden="true">
       <img
         class="absolute inset-0 -z-20 h-full w-full object-cover"
@@ -36,9 +42,9 @@ onMounted(() => {
         fetchpriority="high"
       />
       <video
-        v-if="showHeroVideo"
+        v-if="heroVideoSrc"
         class="absolute inset-0 -z-10 h-full w-full object-cover"
-        src="/hero-dar-aerial.mp4"
+        :src="heroVideoSrc"
         poster="/hero-dar-aerial-poster.jpg"
         autoplay
         muted
