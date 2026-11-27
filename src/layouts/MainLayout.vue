@@ -38,7 +38,7 @@ async function logout() {
           <RouterLink class="nav-link" to="/">Home</RouterLink>
           <RouterLink class="nav-link" to="/about">About</RouterLink>
           <RouterLink class="nav-link" to="/services">Services</RouterLink>
-          <RouterLink class="nav-link" to="/ai-opportunities">AI Solutions</RouterLink>
+          <RouterLink class="nav-link" to="/ai-opportunities">AI for MEL</RouterLink>
           <RouterLink v-if="publishedCaseStudies.length >= 2" class="nav-link" to="/case-studies">Case Studies</RouterLink>
           <RouterLink class="nav-link" to="/learn">Training</RouterLink>
           <RouterLink class="nav-link" to="/toolkit">Toolkit</RouterLink>
@@ -71,7 +71,7 @@ async function logout() {
           <RouterLink class="mobile-menu-link" to="/">Home</RouterLink>
           <RouterLink class="mobile-menu-link" to="/about">About</RouterLink>
           <RouterLink class="mobile-menu-link" to="/services">Services</RouterLink>
-          <RouterLink class="mobile-menu-link" to="/ai-opportunities">AI Solutions</RouterLink>
+          <RouterLink class="mobile-menu-link" to="/ai-opportunities">AI for MEL</RouterLink>
           <RouterLink v-if="publishedCaseStudies.length >= 2" class="mobile-menu-link" to="/case-studies">Case Studies</RouterLink>
           <RouterLink class="mobile-menu-link" to="/learn">Training</RouterLink>
           <RouterLink class="mobile-menu-link" to="/toolkit">MEL Toolkit</RouterLink>
@@ -96,7 +96,7 @@ async function logout() {
         <nav aria-label="Services">
           <h2 class="text-sm font-bold tracking-wide text-white">Services</h2>
           <ul class="mt-4 space-y-3 text-sm text-slate-200">
-            <li><RouterLink class="transition-colors hover:text-white" to="/ai-opportunities">AI Solutions</RouterLink></li>
+            <li><RouterLink class="transition-colors hover:text-white" to="/ai-opportunities">AI for MEL</RouterLink></li>
             <li v-for="service in serviceLines" :key="service.slug">
               <RouterLink class="transition-colors hover:text-white" :to="{ name: 'service-detail', params: { slug: service.slug } }">{{ service.title }}</RouterLink>
             </li>

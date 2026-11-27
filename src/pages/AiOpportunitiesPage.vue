@@ -14,15 +14,15 @@ onMounted(() => {
 })
 
 function contactLink(topic) {
-  return { path: '/contact', query: { service: 'AI Solutions', topic } }
+  return { path: '/contact', query: { service: 'AI for MEL', topic } }
 }
 </script>
 
 <template>
   <div>
     <PageBanner
-      title="AI Solutions"
-      breadcrumb="AI Solutions"
+      title="AI for MEL"
+      breadcrumb="AI for MEL"
       subtitle="From your first AI conversation to working AI inside your systems, built responsibly, in English and Kiswahili."
       large
     />

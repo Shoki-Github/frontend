@@ -6,8 +6,9 @@ import ServiceFaq from '../components/ServiceFaq.vue'
 import { serviceFaqs, brand } from '../data/siteContent'
 import { serviceLines } from '../data/serviceLines'
 
-const AI_SERVICE = 'AI Solutions'
+const AI_SERVICE = 'AI for MEL'
 const WHATSAPP_NUMBER = '255765785383'
+const deadlineOptions = ['Within 1 month', '1–3 months', '3–6 months', 'More than 6 months', 'No fixed deadline']
 const organisationTypes = ['Government', 'Development partner', 'NGO', 'Private sector', 'Individual']
 const sent = ref('')
 const failed = ref(false)
@@ -21,6 +22,7 @@ const emptyForm = {
   phone: '',
   service_of_interest: '',
   preferred_language: 'English',
+  deadline: '',
   message: '',
   company_website: '',
 }
@@ -51,6 +53,7 @@ function composeText() {
     form.phone ? `Phone / WhatsApp: ${form.phone}` : null,
     `Service of interest: ${form.service_of_interest}`,
     `Preferred language: ${form.preferred_language}`,
+    form.deadline ? `Report or evaluation due: ${form.deadline}` : null,
     '',
     form.message,
   ].filter((line) => line !== null).join('\n')
@@ -176,6 +179,12 @@ function submit(event) {
               <select v-model="form.preferred_language" class="field-input" required>
                 <option>English</option>
                 <option>Kiswahili</option>
+              </select>
+            </label>
+            <label class="field-label">When is your report or evaluation due?
+              <select v-model="form.deadline" class="field-input">
+                <option value="">Select a timeframe</option>
+                <option v-for="option in deadlineOptions" :key="option">{{ option }}</option>
               </select>
             </label>
             <label class="field-label sm:col-span-2">Message <span aria-hidden="true">*</span>

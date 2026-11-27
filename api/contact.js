@@ -18,6 +18,7 @@ const LIMITS = {
   phone: 40,
   service_of_interest: 120,
   preferred_language: 30,
+  deadline: 40,
   message: 5000,
 }
 const REQUIRED = ['name', 'organisation', 'organisation_type', 'email', 'service_of_interest', 'preferred_language', 'message']
@@ -97,6 +98,7 @@ export async function POST(request) {
     `Phone / WhatsApp: ${data.phone || '-'}`,
     `Service of interest: ${data.service_of_interest}`,
     `Preferred language: ${data.preferred_language}`,
+    `Report or evaluation due: ${data.deadline || "-"}`,
     '',
     'Message:',
     data.message,

@@ -3,7 +3,11 @@ import { ENABLE_ACCOUNTS } from '../data/features'
 
 const router = createRouter({
   history: createWebHistory(),
-  scrollBehavior: () => ({ top: 0 }),
+  scrollBehavior: (to, from, saved) => {
+    if (saved) return saved
+    if (to.hash) return { el: to.hash, top: 96, behavior: 'smooth' }
+    return { top: 0 }
+  },
   routes: [
     { path: '/', name: 'home', component: () => import('../pages/HomePage.vue'), meta: { title: 'CLM Consultants Limited | Evidence, MEL & AI-enabled services in Tanzania', description: 'CLM Consultants Limited helps organisations in Tanzania strengthen MEL, use data and AI, and improve performance through evaluation, dashboards and practical training.' } },
     { path: '/about', name: 'about', component: () => import('../pages/AboutPage.vue'), meta: { title: 'About | CLM Consultants Limited', description: 'Learn about CLM Consultants Limited, a Tanzanian consulting firm specialising in MEL, data systems and sustainability reporting.' } },
@@ -11,7 +15,7 @@ const router = createRouter({
     { path: '/about-us', redirect: '/about' },
     { path: '/services', name: 'services', component: () => import('../pages/ServicesPage.vue'), meta: { title: 'Services | CLM Consultants Limited', description: 'Explore CLM Consultants Limited services in MEL and evaluation, data and dashboards, ESG reporting, and training.' } },
     { path: '/services/:slug', name: 'service-detail', component: () => import('../pages/ServiceDetailPage.vue'), props: true, meta: { title: 'Service | CLM Consultants Limited' } },
-    { path: '/ai-opportunities', name: 'ai-opportunities', component: () => import('../pages/AiOpportunitiesPage.vue'), meta: { title: 'AI Solutions | CLM Consultants Limited', description: 'AI readiness, strategy and responsible AI policy, generative AI adoption, AI integration (knowledge assistants, WhatsApp chat, document AI, automation) and AI for MEL in Tanzania.' } },
+    { path: '/ai-opportunities', name: 'ai-opportunities', component: () => import('../pages/AiOpportunitiesPage.vue'), meta: { title: 'AI for MEL | CLM Consultants Limited', description: 'AI readiness, strategy and responsible AI policy, generative AI adoption, AI integration (knowledge assistants, WhatsApp chat, document AI, automation) and AI for MEL in Tanzania.' } },
     { path: '/ai-services', redirect: '/ai-opportunities' },
     { path: '/case-studies/:slug', name: 'case-study-detail', component: () => import('../pages/CaseStudyDetailPage.vue'), meta: { title: 'Case Study | CLM Consultants Limited' } },
     { path: '/case-studies', name: 'case-studies', component: () => import('../pages/CaseStudiesPage.vue'), meta: { title: 'Case Studies | CLM Consultants Limited' } },

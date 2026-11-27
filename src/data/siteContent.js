@@ -44,8 +44,8 @@ export const homeContent = {
       href: '/services/mel-systems-evaluation',
     },
     {
-      title: 'AI Solutions',
-      summary: 'AI readiness and strategy, generative AI adoption, AI assistants and automation in your systems, and AI for MEL.',
+      title: 'AI for MEL',
+      summary: 'Use AI to speed up data collection, analysis and reporting in your MEL system, responsibly and in Kiswahili or English.',
       href: '/ai-opportunities',
     },
     {
@@ -58,6 +58,21 @@ export const homeContent = {
       summary: 'Equip your team with practical MEL, data and AI skills.',
       href: '/services/training-capacity',
     },
+  ],
+  // "Where are you right now?" entry points: a buyer at a moment with a
+  // problem, each leading to the offer that fits.
+  buyerMoments: [
+    { question: 'Donor report due and your data is still in spreadsheets?', offerId: 'digital-mel-90-days' },
+    { question: 'A mid-term or final evaluation coming up?', offerId: 'evaluations-that-get-used' },
+    { question: 'Lenders or investors asking for results reporting?', offerId: 'digital-mel-90-days' },
+  ],
+  // Delivery commitments shown under "How we work" (from the strategy's
+  // "what we refuse" choices).
+  promises: [
+    { title: 'No report without a findings workshop', detail: 'You test and shape the findings with us before anything is final.' },
+    { title: 'No dashboard before definitions', detail: 'We agree what each indicator means and how it is checked before we build.' },
+    { title: 'We do not walk away', detail: 'Every assignment ends with a 30-day check or a follow-up review.' },
+    { title: 'English or Kiswahili', detail: 'Workshops, tools and reports in the language your team works in.' },
   ],
   // The two offers the homepage leads with. Each: what changes for the
   // client (outcome), who it is for, the repeatable steps (mechanism) and

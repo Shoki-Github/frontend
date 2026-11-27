@@ -99,6 +99,20 @@ onMounted(() => {
           <a class="inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark" href="#signature-offers">See Our Signature Offers</a>
           <RouterLink class="inline-flex min-h-12 items-center justify-center rounded-md border border-black px-6 py-3 text-sm font-bold text-black transition hover:bg-black hover:text-white" to="/contact">Discuss Your Needs</RouterLink>
         </div>
+        <div class="mt-8">
+          <p class="text-sm font-bold uppercase tracking-[0.12em] text-brand">Where are you right now?</p>
+          <div class="mt-3 grid gap-3 text-left sm:grid-cols-3">
+            <a
+              v-for="moment in homeContent.buyerMoments"
+              :key="moment.question"
+              class="group flex items-start justify-between gap-3 rounded-lg border border-[#e5dfcd] bg-white p-4 text-base font-semibold leading-6 text-navy transition hover:border-brand hover:text-brand"
+              :href="`#${moment.offerId}`"
+            >
+              {{ moment.question }}
+              <span class="text-brand" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -113,8 +127,9 @@ onMounted(() => {
         <div class="mt-8 grid gap-6 lg:grid-cols-2">
           <article
             v-for="offer in homeContent.signatureOffers"
+            :id="offer.id"
             :key="offer.id"
-            class="flex flex-col rounded-2xl border border-[#e5dfcd] bg-paper p-6 shadow-[0_12px_36px_rgba(27,42,74,0.06)] md:p-8"
+            class="flex scroll-mt-24 flex-col rounded-2xl border border-[#e5dfcd] bg-paper p-6 shadow-[0_12px_36px_rgba(27,42,74,0.06)] md:p-8"
           >
             <p class="text-xs font-bold uppercase tracking-[0.12em] text-[#9a7a12]">{{ offer.label }}</p>
             <h3 class="mt-2 text-2xl font-bold tracking-tight text-navy md:text-3xl">{{ offer.title }}</h3>
@@ -148,6 +163,19 @@ onMounted(() => {
                 Learn more
               </RouterLink>
             </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-navy px-5 py-12 text-white md:py-14 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <p class="text-sm font-bold uppercase tracking-[0.12em] text-[#c9a227]">How we work</p>
+        <h2 class="mt-3 text-2xl font-bold tracking-tight md:text-3xl">Our promises on every assignment</h2>
+        <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <article v-for="promise in homeContent.promises" :key="promise.title" class="rounded-xl bg-white/10 p-5">
+            <h3 class="text-lg font-bold leading-snug">{{ promise.title }}</h3>
+            <p class="mt-2 text-base leading-7 text-slate-200">{{ promise.detail }}</p>
           </article>
         </div>
       </div>
