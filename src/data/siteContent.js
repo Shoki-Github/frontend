@@ -6,7 +6,7 @@ export const brand = {
   email: 'info@clmconsultants.co.tz',
   directorEmail: 'pshoki@clmconsultants.co.tz',
   phoneNumbers: ['+255 765 785 383', '+255 685 993 590'],
-  website: 'https://clm-consultants.vercel.app',
+  website: 'https://clmconsultants.co.tz',
   // Shown on the capability statement once filled in (e.g. BRELA number, TIN).
   registrationNumber: '',
   tin: '',
@@ -74,7 +74,7 @@ export const homeContent = {
   reasons: [
     {
       title: 'Local depth, international standards.',
-      description: 'More than 30 years of monitoring, evaluation and learning experience across Tanzania and East Africa, grounded in local context and aligned with international standards.',
+      description: 'Led by a director with more than 30 years of monitoring, evaluation and learning experience across Tanzania and East Africa, grounded in local context and aligned with international standards.',
     },
     {
       title: 'From data to decisions.',

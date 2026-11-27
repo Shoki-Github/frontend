@@ -5,14 +5,11 @@ import PageBanner from '../components/PageBanner.vue'
 import ServiceFaq from '../components/ServiceFaq.vue'
 import { serviceFaqs, brand } from '../data/siteContent'
 import { serviceLines } from '../data/serviceLines'
-import { apiRequest } from '../services/api'
 
 const AI_SERVICE = 'AI Solutions'
+const WHATSAPP_NUMBER = '255765785383'
 const organisationTypes = ['Government', 'Development partner', 'NGO', 'Private sector', 'Individual']
-const errors = ref({})
-const failure = ref(false)
-const submitted = ref(false)
-const submitting = ref(false)
+const sent = ref('')
 const form = reactive({
   name: '',
   organisation: '',
@@ -22,7 +19,6 @@ const form = reactive({
   service_of_interest: '',
   preferred_language: 'English',
   message: '',
-  company_website: '',
 })
 
 // Pre-fill from links such as /contact?service=...&course=... (Learn page).
@@ -37,36 +33,33 @@ if (typeof route.query.course === 'string' && route.query.course.length <= 200) 
   form.message = `I would like to discuss: ${route.query.topic}.`
 }
 
-async function submit() {
-  errors.value = {}
-  failure.value = false
-  submitted.value = false
-  submitting.value = true
+// No server receives the form yet, so the request is handed to the visitor's
+// own email app or WhatsApp, already filled in with what they typed.
+function composeText() {
+  return [
+    'Consultation request',
+    '',
+    `Name: ${form.name}`,
+    `Organisation: ${form.organisation} (${form.organisation_type})`,
+    `Email: ${form.email}`,
+    form.phone ? `Phone / WhatsApp: ${form.phone}` : null,
+    `Service of interest: ${form.service_of_interest}`,
+    `Preferred language: ${form.preferred_language}`,
+    '',
+    form.message,
+  ].filter((line) => line !== null).join('\n')
+}
 
-  try {
-    await apiRequest('/contact-messages', {
-      method: 'POST',
-      body: { ...form, subject: 'Consultation request' },
-    })
-    submitted.value = true
-    Object.assign(form, {
-      name: '',
-      organisation: '',
-      organisation_type: '',
-      email: '',
-      phone: '',
-      service_of_interest: '',
-      preferred_language: 'English',
-      message: '',
-      company_website: '',
-    })
-  } catch (requestError) {
-    console.error('Unable to submit the consultation request.', requestError)
-    failure.value = true
-    errors.value = requestError.errors || {}
-  } finally {
-    submitting.value = false
+function submit(event) {
+  const channel = event.submitter?.value === 'whatsapp' ? 'whatsapp' : 'email'
+  const text = composeText()
+  if (channel === 'whatsapp') {
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank', 'noopener')
+  } else {
+    const subject = `Consultation request: ${form.service_of_interest}`
+    window.location.href = `mailto:${brand.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`
   }
+  sent.value = channel
 }
 </script>
 
@@ -101,36 +94,28 @@ async function submit() {
         </div>
 
         <form class="rounded-xl border border-[#e5dfcd] bg-white p-5 shadow-[0_12px_36px_rgba(27,42,74,0.07)] md:p-8" @submit.prevent="submit">
-          <p v-if="submitted" class="mb-6 rounded-lg border border-[#a7d6ca] bg-[#edf7f3] p-4 text-base leading-6 text-navy" role="status">
-            Thank you — we’ll be in touch within two working days.
-          </p>
-          <p v-if="failure" class="mb-6 rounded-lg border border-[#e3c88a] bg-[#fbf6e8] p-4 text-base leading-6 text-navy" role="alert">
-            We couldn’t send your request just now. Please email <a class="font-semibold underline" :href="`mailto:${brand.email}`">{{ brand.email }}</a>.
+          <p v-if="sent" class="mb-6 rounded-lg border border-[#a7d6ca] bg-[#edf7f3] p-4 text-base leading-6 text-navy" role="status">
+            Your {{ sent === 'whatsapp' ? 'WhatsApp' : 'email app' }} should now be open with your request filled in. Press send there to reach us. If nothing opened, email <a class="font-semibold underline" :href="`mailto:${brand.email}`">{{ brand.email }}</a> directly.
           </p>
 
           <div class="grid gap-5 sm:grid-cols-2">
             <label class="field-label">Full name <span aria-hidden="true">*</span>
               <input v-model="form.name" class="field-input" autocomplete="name" required maxlength="200" />
-              <span v-if="errors.name" class="field-error">{{ errors.name[0] }}</span>
             </label>
             <label class="field-label">Organisation <span aria-hidden="true">*</span>
               <input v-model="form.organisation" class="field-input" autocomplete="organization" required maxlength="200" />
-              <span v-if="errors.organisation" class="field-error">{{ errors.organisation[0] }}</span>
             </label>
             <label class="field-label">Email <span aria-hidden="true">*</span>
               <input v-model="form.email" class="field-input" type="email" autocomplete="email" required maxlength="255" />
-              <span v-if="errors.email" class="field-error">{{ errors.email[0] }}</span>
             </label>
             <label class="field-label">Phone / WhatsApp
               <input v-model="form.phone" class="field-input" type="tel" autocomplete="tel" maxlength="40" />
-              <span v-if="errors.phone" class="field-error">{{ errors.phone[0] }}</span>
             </label>
             <label class="field-label">Organisation type <span aria-hidden="true">*</span>
               <select v-model="form.organisation_type" class="field-input" required>
                 <option disabled value="">Select an organisation type</option>
                 <option v-for="type in organisationTypes" :key="type" :value="type">{{ type }}</option>
               </select>
-              <span v-if="errors.organisation_type" class="field-error">{{ errors.organisation_type[0] }}</span>
             </label>
             <label class="field-label">Service of interest <span aria-hidden="true">*</span>
               <select v-model="form.service_of_interest" class="field-input" required>
@@ -139,30 +124,27 @@ async function submit() {
                 <option :value="AI_SERVICE">{{ AI_SERVICE }}</option>
                 <option value="Other">Other</option>
               </select>
-              <span v-if="errors.service_of_interest" class="field-error">{{ errors.service_of_interest[0] }}</span>
             </label>
             <label class="field-label">Preferred language <span aria-hidden="true">*</span>
               <select v-model="form.preferred_language" class="field-input" required>
                 <option>English</option>
                 <option>Kiswahili</option>
               </select>
-              <span v-if="errors.preferred_language" class="field-error">{{ errors.preferred_language[0] }}</span>
             </label>
             <label class="field-label sm:col-span-2">Message <span aria-hidden="true">*</span>
               <textarea v-model="form.message" class="field-input min-h-36 resize-y" required minlength="10" maxlength="5000"></textarea>
-              <span v-if="errors.message" class="field-error">{{ errors.message[0] }}</span>
             </label>
           </div>
 
-          <label class="honeypot" aria-hidden="true">
-            Leave this field empty
-            <input v-model="form.company_website" tabindex="-1" autocomplete="off" />
-          </label>
-
-          <button class="mt-6 inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark disabled:cursor-wait disabled:opacity-60" type="submit" :disabled="submitting">
-            {{ submitting ? 'Sending…' : 'Send request' }}
-          </button>
-          <p class="mt-4 text-sm leading-6 text-muted">We’ll use your information to respond to this request. Please don’t include passwords or sensitive personal information.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <button class="inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark" type="submit" value="email">
+              Send by email
+            </button>
+            <button class="inline-flex min-h-12 items-center justify-center rounded-md border border-brand px-6 py-3 text-sm font-bold text-brand transition hover:bg-brand hover:text-white" type="submit" value="whatsapp">
+              Send on WhatsApp
+            </button>
+          </div>
+          <p class="mt-4 text-sm leading-6 text-muted">Either button opens your own email app or WhatsApp with this request filled in, ready for you to send. Please don’t include passwords or sensitive personal information.</p>
         </form>
       </div>
     </section>
@@ -211,11 +193,4 @@ async function submit() {
   font-weight: 500;
 }
 
-.honeypot {
-  position: absolute;
-  left: -10000px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
 </style>

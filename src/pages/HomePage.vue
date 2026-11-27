@@ -6,7 +6,6 @@ import SocialProof from '../components/SocialProof.vue'
 import { publishedCaseStudies } from '../data/caseStudies'
 import { homeContent } from '../data/siteContent'
 import { toolkitGuides } from '../data/toolkitGuides'
-import { onlineCourse } from '../data/onlineCourse'
 import { apiRequest } from '../services/api'
 
 const latestInsights = ref([])
@@ -41,7 +40,7 @@ onMounted(async () => {
       ></video>
       <div class="mx-auto max-w-7xl px-5 pb-16 pt-0 md:pb-20 md:pt-4 lg:px-8">
         <div class="max-w-4xl">
-          <h1 class="mt-4 whitespace-nowrap text-center text-[clamp(0.75rem,3.6vw,3rem)] font-bold leading-tight tracking-tight text-black">{{ homeContent.title }}</h1>
+          <h1 class="mt-4 inline-block rounded-lg bg-navy/75 px-4 py-2 text-left text-[clamp(1.6rem,5vw,3rem)] font-bold leading-tight tracking-tight text-white shadow-lg backdrop-blur-sm">{{ homeContent.title }}</h1>
         </div>
       </div>
     </section>
@@ -50,19 +49,8 @@ onMounted(async () => {
       <div class="mx-auto max-w-4xl text-center">
         <p class="mx-auto max-w-3xl text-base leading-7 text-black md:text-lg md:leading-8">{{ homeContent.intro }}</p>
         <div class="mt-3 flex flex-wrap justify-center gap-3">
-          <RouterLink class="inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-black transition hover:bg-brand-dark" to="/services">Explore Our Services</RouterLink>
+          <RouterLink class="inline-flex min-h-12 items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-dark" to="/services">Explore Our Services</RouterLink>
           <RouterLink class="inline-flex min-h-12 items-center justify-center rounded-md border border-black px-6 py-3 text-sm font-bold text-black transition hover:bg-black hover:text-white" to="/contact">Discuss Your Needs</RouterLink>
-        </div>
-        <div class="mt-2 flex flex-wrap justify-center gap-3" aria-label="Explore CLM work and learning">
-          <RouterLink class="inline-flex min-h-11 items-center justify-center rounded-md border border-brand px-5 py-2.5 text-sm font-bold text-brand transition hover:bg-brand hover:text-white" to="/case-studies">
-            CLM Projects
-          </RouterLink>
-          <RouterLink class="inline-flex min-h-11 items-center justify-center rounded-md border border-brand px-5 py-2.5 text-sm font-bold text-brand transition hover:bg-brand hover:text-white" to="/digital-products">
-            Digital Products
-          </RouterLink>
-          <a class="inline-flex min-h-11 items-center justify-center rounded-md border border-brand px-5 py-2.5 text-sm font-bold text-brand transition hover:bg-brand hover:text-white" :href="onlineCourse.href" target="_blank" rel="noopener noreferrer">
-            {{ onlineCourse.title }}
-          </a>
         </div>
       </div>
     </section>
@@ -164,7 +152,7 @@ onMounted(async () => {
             <p class="mt-3 text-base leading-7 text-muted">Insights from our work alongside practical guides for your team.</p>
           </div>
           <div class="flex gap-5">
-            <RouterLink class="text-sm font-bold text-brand underline underline-offset-2" to="/insights">All insights</RouterLink>
+            <RouterLink v-if="latestInsights.length" class="text-sm font-bold text-brand underline underline-offset-2" to="/insights">All insights</RouterLink>
             <RouterLink class="text-sm font-bold text-brand underline underline-offset-2" to="/toolkit">All guides</RouterLink>
           </div>
         </div>

@@ -62,10 +62,10 @@ export function setPageMetadata({ title, description, path }) {
   setMeta('property', 'og:title', resolvedTitle)
   setMeta('property', 'og:description', resolvedDescription)
   setMeta('property', 'og:url', new URL(path || '/', brand.website).toString())
-  setMeta('property', 'og:image', new URL('/og-clm.svg', brand.website).toString())
+  setMeta('property', 'og:image', new URL('/og-clm.png', brand.website).toString())
   setMeta('name', 'twitter:title', resolvedTitle)
   setMeta('name', 'twitter:description', resolvedDescription)
-  setMeta('name', 'twitter:image', new URL('/og-clm.svg', brand.website).toString())
+  setMeta('name', 'twitter:image', new URL('/og-clm.png', brand.website).toString())
   setCanonical(path || '/')
   setStructuredData()
 }

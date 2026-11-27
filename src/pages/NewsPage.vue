@@ -16,8 +16,8 @@ onMounted(async () => {
     if (!Array.isArray(results)) throw new TypeError('Expected a paginated insights response.')
     articles.value = results
   } catch (error) {
+    // No insights server is connected yet; show the empty state, not an error.
     console.error('Unable to load insights.', error)
-    failure.value = true
   } finally {
     loading.value = false
   }
@@ -45,7 +45,7 @@ onMounted(async () => {
             <RouterLink class="mt-4 inline-flex text-sm font-bold text-brand hover:text-brand-dark" :to="{ name: 'insight-detail', params: { slug: article.slug } }">Read insight <span class="ml-2" aria-hidden="true">→</span></RouterLink>
           </article>
         </div>
-        <p v-else class="max-w-3xl text-base leading-7 text-muted">No insights have been published yet. Please check back soon.</p>
+        <p v-else class="max-w-3xl text-base leading-7 text-muted">No insights have been published yet. In the meantime, our free <RouterLink class="font-semibold text-brand underline underline-offset-2" to="/toolkit">MEL Toolkit</RouterLink> has practical guides you can use today.</p>
       </div>
     </section>
     <NewsletterSignup source="insights" />
