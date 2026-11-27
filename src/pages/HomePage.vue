@@ -20,6 +20,33 @@ const latestInsights = [...insights]
 // Phones without WebM, data-saver and reduced-motion keep the still image.
 const heroVideoSrc = ref('')
 
+// Seamless loop: two copies of the clip take turns. Shortly before the
+// playing copy ends, the other starts from the beginning and cross-fades
+// in over it, so the restart never shows a hard cut.
+const CROSSFADE_SECONDS = 1.5
+const CLIP_SECONDS = 24.1 // fallback when the file does not report its length
+const heroVideos = ref([])
+const activeHeroVideo = ref(0)
+let crossfading = false
+
+function heroTimeUpdate(index) {
+  if (index !== activeHeroVideo.value || crossfading) return
+  const current = heroVideos.value[index]
+  const next = heroVideos.value[1 - index]
+  if (!current || !next) return
+  const length = Number.isFinite(current.duration) ? current.duration : CLIP_SECONDS
+  if (current.currentTime < length - CROSSFADE_SECONDS && !current.ended) return
+  crossfading = true
+  next.currentTime = 0
+  next.play().catch(() => {})
+  activeHeroVideo.value = 1 - index
+  setTimeout(() => {
+    current.pause()
+    current.currentTime = 0
+    crossfading = false
+  }, CROSSFADE_SECONDS * 1000 + 200)
+}
+
 onMounted(() => {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const saveData = navigator.connection?.saveData === true
@@ -41,17 +68,24 @@ onMounted(() => {
         alt=""
         fetchpriority="high"
       />
-      <video
-        v-if="heroVideoSrc"
-        class="absolute inset-0 -z-10 h-full w-full object-cover"
-        :src="heroVideoSrc"
-        poster="/hero-dar-aerial-poster.jpg"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-      ></video>
+      <template v-if="heroVideoSrc">
+        <video
+          v-for="index in [0, 1]"
+          :key="index"
+          :ref="(el) => { heroVideos[index] = el }"
+          class="absolute inset-0 -z-10 h-full w-full object-cover transition-opacity ease-in-out"
+          :class="activeHeroVideo === index ? 'opacity-100' : 'opacity-0'"
+          :style="{ transitionDuration: `${CROSSFADE_SECONDS}s` }"
+          :src="heroVideoSrc"
+          :poster="index === 0 ? '/hero-dar-aerial-poster.jpg' : undefined"
+          :autoplay="index === 0"
+          muted
+          playsinline
+          preload="auto"
+          @timeupdate="heroTimeUpdate(index)"
+          @ended="heroTimeUpdate(index)"
+        ></video>
+      </template>
     </section>
 
     <section class="bg-paper px-5 py-8 md:py-10 lg:px-8">
